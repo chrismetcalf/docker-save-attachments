@@ -29,6 +29,12 @@ if [ -f /config/.fetchmailrc ]; then
 	echo "Installed .fetchmailrc"
 fi
 
+# check for custom cron schedule
+if [[ -n "$CRON_SCHEDULE" ]]; then
+  sed -i 's|\* \* \* \* \*|'"$CRON_SCHEDULE"'|g' /etc/cron.d/save-attachments
+  echo "Installed custom cron: $CRON_SCHEDULE"
+fi
+
 # update CA certificates if necessary from /config/*.crt
 if stat --printf='' /config/*.crt 2>/dev/null
 then
