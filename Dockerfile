@@ -30,6 +30,7 @@ RUN addgroup --quiet --uid $UID docker && \
     -g docker \
     docker
 
+
 ENV USER docker
 
 ADD docker-entrypoint.sh /opt/docker-entrypoint.sh
