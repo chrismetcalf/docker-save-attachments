@@ -22,11 +22,11 @@ RUN maildirmake /var/mail/working \
     && touch /var/mail/save-attachments.log \
     && chmod 0644 /etc/cron.d/save-attachments
 
-RUN addgroup --quiet --uid 1000 docker && \
+RUN addgroup --quiet --uid $UID docker && \
     useradd \
     --home /output \
     --shell /bin/bash \
-    --uid 1000 \
+    --uid $UID \
     -g docker \
     docker
 
