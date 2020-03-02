@@ -22,6 +22,16 @@ RUN maildirmake /var/mail/working \
     && touch /var/mail/save-attachments.log \
     && chmod 0644 /etc/cron.d/save-attachments
 
+RUN addgroup --quiet --uid 1000 docker && \
+    useradd \
+    --home /output \
+    --shell /bin/bash \
+    --uid 1000 \
+    -g docker \
+    docker
+
+ENV USER docker
+
 ADD docker-entrypoint.sh /opt/docker-entrypoint.sh
 ENTRYPOINT ["/opt/docker-entrypoint.sh"]
 CMD ["cron"]
