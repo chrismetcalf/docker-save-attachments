@@ -1,2 +1,2 @@
-* * * * * docker /opt/save-attachments.sh >> /var/mail/save-attachments.log 2>&1
+* * * * * root /opt/save-attachments.sh >> /var/mail/save-attachments.log 2>&1
 
