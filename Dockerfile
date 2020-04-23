@@ -1,9 +1,10 @@
 FROM ubuntu:latest
 
-MAINTAINER Chris Metcalf
+MAINTAINER Yannik Korzikowski <yannik@korzikowski.de>
 
 VOLUME /var/mail /config /output
 
+ARG UID=1000
 ENV DEBIAN_FRONTEND noninteractive
 
 ADD save-attachments.crontab /etc/cron.d/save-attachments
