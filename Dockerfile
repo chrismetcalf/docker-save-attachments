@@ -1,9 +1,10 @@
 FROM ubuntu:latest
 
-MAINTAINER Chris Metcalf
+MAINTAINER Yannik Korzikowski <yannik@korzikowski.de>
 
 VOLUME /var/mail /config /output
 
+ARG UID=1000
 ENV DEBIAN_FRONTEND noninteractive
 
 ADD save-attachments.crontab /etc/cron.d/save-attachments
@@ -21,6 +22,17 @@ RUN maildirmake /var/mail/working \
     && echo "to /var/mail/working" > /root/.mailfilter \
     && touch /var/mail/save-attachments.log \
     && chmod 0644 /etc/cron.d/save-attachments
+
+RUN addgroup --quiet --uid $UID docker && \
+    useradd \
+    --home /output \
+    --shell /bin/bash \
+    --uid $UID \
+    -g docker \
+    docker
+
+
+ENV USER docker
 
 ADD docker-entrypoint.sh /opt/docker-entrypoint.sh
 ENTRYPOINT ["/opt/docker-entrypoint.sh"]
